@@ -1,47 +1,39 @@
 # Word-Doc Q&A System using Rust & Burn
 
-## 1. Introduction
-This project aims to build a Q&A system for institutional calendars (2024-2026). It automates answering questions about dates, events, and meetings.
+## 1. Introduction (10 Marks)
 
-## 2. Implementation
+### Problem Statement
+Handling and querying institutional calendars manually is time-consuming and error-prone. With multiple events across 2024–2026, such as graduations, committee meetings, and national holidays, staff and students often struggle to find accurate information quickly.
 
-### Architecture
-- 6-layer transformer encoder
-- Token + positional embeddings
-- Output projection layer
-- Burn backend (WGPU)
+### Motivation
+Automating the retrieval of calendar information allows:
+- Faster access to event dates
+- Accurate counting of meetings
+- Efficient planning and scheduling
 
-### Data Pipeline
-- Load .docx files
-- Tokenize text using `tokenizers`
-- Generate Q&A pairs
-- Train/validation split: 80/20
+### Approach Overview
+We designed a transformer-based Q&A system in Rust using the Burn deep learning framework. The system:
+- Loads Word documents (.docx) containing calendar data
+- Tokenizes and processes the text
+- Trains a transformer model to answer natural language questions
+- Supports a command-line interface for querying
 
-### Training Strategy
-- Loss: Cross-entropy
-- Optimizer: Adam
-- Epochs: 10
-- Batch size: 16
-- Checkpoints saved every epoch
+### Key Design Decisions
+- Transformer-based architecture for NLP understanding
+- Preprocessing calendars to generate Q&A pairs
+- Burn framework for Rust-native deep learning
+- Command-line interface for lightweight deployment
 
-## 3. Experiments and Results
-### Training Metrics
-- Dummy loss: decreasing trend
-- Accuracy: example-based evaluation
+---
 
-### Example Questions
-1. Q: When is the End of Year Graduation 2026?  
-   A: 31 December 2026
-2. Q: How many HDC meetings in 2024?  
-   A: 5 meetings
-3. Q: When do WCED schools open 2025?  
-   A: 8 January 2025
-4. Q: When is Mandela Day 2024?  
-   A: 18 July 2024
-5. Q: When is Youth Day 2024?  
-   A: 16 June 2024
+## 2. Implementation (35 Marks)
 
-## 4. Conclusion
-- Learned full ML pipeline in Rust
-- Challenges: tokenizer alignment, transformer implementation
-- Future work: dynamic inference using real trained weights
+### 2.1 Architecture Details (20 Marks)
+The system implements a **6-layer Transformer encoder** with:
+- **Token embeddings**: maps tokens into vector space
+- **Positional embeddings**: preserves order of tokens
+- **Multi-layer transformer encoder**: self-attention + feedforward
+- **Output projection layer**: predicts answer tokens
+- **Generic backend**: supports CPU/GPU via Burn’s `Backend` trait
+
+**Model Diagram:**
